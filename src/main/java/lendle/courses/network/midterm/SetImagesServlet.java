@@ -5,6 +5,7 @@
  */
 package lendle.courses.network.midterm;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -32,8 +33,19 @@ public class SetImagesServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("image/png");
         request.setCharacterEncoding("utf-8");
+        
+        File file=new File(getServletContext().getRealPath("index.jsp"));
+        String image1=request.getParameter("1");
+        String image2=request.getParameter("2");
+        String image3=request.getParameter("3");
+        HttpSession session=request.getSession();
+        session.setAttribute("1",image1);
+        session.setAttribute("2",image2);
+        session.setAttribute("3",image3);
+        response.sendRedirect("index.jsp");
+       
         /*
         從 request parameter 讀出 image1, image2, image3
         設定到 session 的 1, 2, 3 attribute

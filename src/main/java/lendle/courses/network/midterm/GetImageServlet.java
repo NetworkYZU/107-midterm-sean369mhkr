@@ -5,6 +5,8 @@
  */
 package lendle.courses.network.midterm;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -37,6 +39,19 @@ public class GetImageServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("image/png");
         String defaultImageString="https://upload.wikimedia.org/wikipedia/commons/9/9a/PNG_transparency_demonstration_2.png";
+        
+        String id=request.getParameter("id");
+        if(id==null){
+            defaultImageString
+        }
+        File file=new File(getServletContext().getRealPath("image"));
+        try(InputStream input=new FileInputStream(file); OutputStream out=response.getOutputStream()) {
+            IOUtils.copy(input, out);
+        } 
+        
+        
+        
+       
         /*
         從 request 抓出 parameter id
         以這個 id 從 session 裡面找出對應的 image 網址
