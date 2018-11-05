@@ -39,10 +39,12 @@ public class GetImageServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("image/png");
         String defaultImageString="https://upload.wikimedia.org/wikipedia/commons/9/9a/PNG_transparency_demonstration_2.png";
-        
+        String address=null;
         String id=request.getParameter("id");
         if(id==null){
-            defaultImageString
+            address=defaultImageString;
+        }else{
+            request.getRequestDispatcher(address).forward(request, response);
         }
         File file=new File(getServletContext().getRealPath("image"));
         try(InputStream input=new FileInputStream(file); OutputStream out=response.getOutputStream()) {
